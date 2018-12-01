@@ -1,6 +1,6 @@
 {
     "variables": {
-
+        "linux_base_user_name": "developer"
     },
     "builders": [
         {
@@ -9,14 +9,19 @@
             "commit": true,
             "author": "Patrick Young <patrickyoung414@gmail.com>",
             "changes": [
-
+                "USER {{ user `linux_base_user_name`}}",
+                "WORKDIR /home/{{ user `linux_base_user_name` }}"
             ]
         }
     ],
     "provisioners" : [
         {
             "type": "ansible",
-            "playbook_file": "playbook-swiss.yaml"
+            "playbook_file": "playbook-swiss.yaml",
+            "extra_arguments": [
+                "--extra-vars",
+                "linux_base_user_name={{ user `linux_base_user_name` }}"
+            ]
         }
     ],
     "post-processors": [

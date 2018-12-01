@@ -1,0 +1,32 @@
+---
+- name: install system packages; latest versions
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+      - sudo
+      - build-essential
+      - tree
+      - tmux
+     
+- name: remove dependencies that are no longer required
+  yum:
+    autoclean: yes
+
+- name: allow sudo group passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    regexp: "^%sudo"
+    line: "%sudo ALL=(ALL:ALL) NOPASSWD: ALL"
+
+- name: create user account (defaults to developer); add to sudoers
+  user:
+    name: "{{ linux_base_user_name }}"
+    state: present
+    shell: /bin/bash
+    create_home: yes
+    group: root
+    groups:
+      - sudo
+    append: yes
