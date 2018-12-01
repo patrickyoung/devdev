@@ -1,0 +1,29 @@
+{
+    "variables": {
+
+    },
+    "builders": [
+        {
+            "type": "docker",
+            "image": "python:stretch",
+            "commit": true,
+            "author": "Patrick Young <patrickyoung414@gmail.com>",
+            "changes": [
+
+            ]
+        }
+    ],
+    "provisioners" : [
+        {
+            "type": "ansible",
+            "playbook_file": "playbook-swiss.yaml"
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "docker-tag",
+            "repository": "swiss",
+            "tag": "latest"
+        }
+    ]
+}

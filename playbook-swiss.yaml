@@ -1,0 +1,7 @@
+---
+- name: Swiss Army Knife DEV environment
+  hosts: all
+
+  tasks:
+    - debug:
+        msg: Hello, World
