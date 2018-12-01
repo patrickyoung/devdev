@@ -9,9 +9,9 @@
       - build-essential
       - tree
       - tmux
-     
+
 - name: remove dependencies that are no longer required
-  yum:
+  apt:
     autoclean: yes
 
 - name: allow sudo group passwordless sudo
