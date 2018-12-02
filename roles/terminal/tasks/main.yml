@@ -8,7 +8,15 @@
       - sudo
       - build-essential
       - tree
+      - curl
+      - wget
       - tmux
+      - unzip
+      - htop
+      - less
+      - dstat
+      - dnsutils
+      - iputils-ping
 
 - name: remove dependencies that are no longer required
   apt:
@@ -30,3 +38,11 @@
     groups:
       - sudo
     append: yes
+
+- name: get home folder of the 'developer' user
+  shell: getent passwd "{{ linux_base_user_name }}" | cut -d":" -f6
+  register: dev_user_home
+
+- set_fact:
+    linux_base_dev_user_home: "{{ dev_user_home.stdout }}"
+    cacheable: yes
